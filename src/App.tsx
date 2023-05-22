@@ -1,9 +1,10 @@
 import { Button } from '@mui/material';
+import AppBar from './components/AppBar';
 
 function App() {
   return (
     <div className="App">
-      <Button variant="contained">Hello World</Button>
+      <AppBar children={<></>} />
     </div>
   );
 }
