@@ -1,31 +1,25 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import CssBaseline from '@mui/material/CssBaseline';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Fab from '@mui/material/Fab';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Fade from '@mui/material/Fade';
-import AdbIcon from '@mui/icons-material/Adb';
-import IconButton from '@mui/material/IconButton';
+import PublicIcon from '@mui/icons-material/Public';
+import HikingIcon from '@mui/icons-material/Hiking';
 import MenuIcon from '@mui/icons-material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-
-const pages = ['登山分析', '行前規劃', '紀錄'];
-const settings = ['基本設定', '帳號設定', '個人面版', '登出'];
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  useScrollTrigger,
+  Box,
+  Fade,
+  Container,
+  MenuItem,
+  Menu,
+  Button,
+  IconButton,
+  Avatar,
+} from '@mui/material';
+import { PAGES_PATH, SETTINGS_PATH, LANGUAGES } from '@/constants/common';
+import MenuList from '@/components/AppBar/MenuList';
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window?: () => Window;
   children: React.ReactElement;
 }
@@ -70,32 +64,21 @@ export default function BackToTop(props: Props) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
-    <React.Fragment>
-      <CssBaseline />
+    <>
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <HikingIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
@@ -143,14 +126,14 @@ export default function BackToTop(props: Props) {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {pages.map((page) => (
+                {PAGES_PATH.map((page: string) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-            <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            <HikingIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap
@@ -167,10 +150,10 @@ export default function BackToTop(props: Props) {
                 textDecoration: 'none',
               }}
             >
-              LOGO
+              HK-Book
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
+              {PAGES_PATH.map((page: string) => (
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
@@ -180,57 +163,31 @@ export default function BackToTop(props: Props) {
                 </Button>
               ))}
             </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+            <MenuList
+              children={<PublicIcon sx={{ mr: 1 }} />}
+              list={LANGUAGES}
+              alt="Language"
+              title="語言"
+              style={{ mr: 2, color: 'inherit' }}
+            />
+            <MenuList
+              children={
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              }
+              list={SETTINGS_PATH}
+              alt="Open settings"
+              style={{ p: 0 }}
+            />
           </Toolbar>
         </Container>
       </AppBar>
-      <Toolbar id="back-to-top-anchor" />
-      <Container>
-        {/* <Box sx={{ my: 2 }}>
-          {[...new Array(12)]
-            .map(
-              () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-            )
-            .join('\n')}
-        </Box> */}
-      </Container>
-      <ScrollTop {...props}>
+      {/* <Toolbar id="back-to-top-anchor" /> */}
+      {/* <Container>TODO Content</Container> */}
+      {/* <ScrollTop {...props}>
         <Fab size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
         </Fab>
-      </ScrollTop>
-    </React.Fragment>
+      </ScrollTop> */}
+    </>
   );
 }
