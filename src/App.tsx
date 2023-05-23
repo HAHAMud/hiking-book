@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import AppBar from './components/AppBar';
+import AppBar from '@/components/AppBar';
 
 function App() {
   return (
