@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import PublicIcon from '@mui/icons-material/Public';
 import HikingIcon from '@mui/icons-material/Hiking';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -16,6 +17,7 @@ import {
   IconButton,
   Avatar,
 } from '@mui/material';
+
 import { PAGES_PATH, SETTINGS_PATH, LANGUAGES } from '@/constants/common';
 import MenuList from '@/components/AppBar/MenuList';
 
@@ -64,6 +66,7 @@ export default function BackToTop(props: Props) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
+  const { t } = useTranslation();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -126,7 +129,7 @@ export default function BackToTop(props: Props) {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {PAGES_PATH.map((page: string) => (
+                {Object.values(PAGES_PATH).map((page: string) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
@@ -153,13 +156,13 @@ export default function BackToTop(props: Props) {
               HK-Book
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {PAGES_PATH.map((page: string) => (
+              {Object.values(PAGES_PATH).map((page: string) => (
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                  {page}
+                  {t(`nav-bar.${page}`)}
                 </Button>
               ))}
             </Box>
