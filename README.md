@@ -7,7 +7,7 @@ yarn start
 - [x] eslint
 - [x] prettier
 - [x] react router
-- [ ] i18n
+- [x] i18n
 
 
 # 功能
