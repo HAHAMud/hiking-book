@@ -7,13 +7,14 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
+import { Theme, SxProps } from '@mui/material/styles';
 
 interface Props {
   children: React.ReactNode;
   alt?: string;
   title?: string;
   list: string[];
-  style?: React.CSSProperties;
+  style?: SxProps<Theme> | undefined;
 }
 
 const MenuList = ({ children, alt, title, list, style }: Props) => {
