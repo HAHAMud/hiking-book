@@ -131,7 +131,9 @@ export default function BackToTop(props: Props) {
               >
                 {Object.values(PAGES_PATH).map((page: string) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                    <Typography textAlign="center">
+                      {t(`nav-bar.${page}`)}
+                    </Typography>
                   </MenuItem>
                 ))}
               </Menu>
