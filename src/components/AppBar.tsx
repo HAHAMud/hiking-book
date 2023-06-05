@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { ReactElement, JSXElementConstructor } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import PublicIcon from '@mui/icons-material/Public';
 import HikingIcon from '@mui/icons-material/Hiking';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -23,7 +24,7 @@ import MenuList from '@/components/AppBar/MenuList';
 
 interface Props {
   window?: () => Window;
-  children: React.ReactElement;
+  children?: ReactElement<any, string | JSXElementConstructor<any>>;
 }
 
 function ScrollTop(props: Props) {
@@ -66,7 +67,12 @@ export default function BackToTop(props: Props) {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
+  const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const handleRouterLink = (path: string) => {
+    navigate(`/${path}`); // 指引路由
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -130,7 +136,7 @@ export default function BackToTop(props: Props) {
                 }}
               >
                 {Object.values(PAGES_PATH).map((page: string) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <MenuItem key={page} onClick={() => handleRouterLink(page)}>
                     <Typography textAlign="center">
                       {t(`nav-bar.${page}`)}
                     </Typography>
@@ -161,7 +167,7 @@ export default function BackToTop(props: Props) {
               {Object.values(PAGES_PATH).map((page: string) => (
                 <Button
                   key={page}
-                  onClick={handleCloseNavMenu}
+                  onClick={() => handleRouterLink(page)}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                 >
                   {t(`nav-bar.${page}`)}
