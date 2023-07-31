@@ -1,0 +1,8 @@
+{
+    "Welcome to React": "Welcome to React and react-i18next",
+    "nav-bar": {
+        "record": "Record",
+        "prepare": "Prepare",
+        "analysis": "Review"
+    }
+}
